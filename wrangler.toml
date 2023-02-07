@@ -1,0 +1,3 @@
+name = "cambin"
+main = "src/index.ts"
+compatibility_date = "2023-02-07"

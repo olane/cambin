@@ -1,6 +1,7 @@
 import { unstable_dev } from "wrangler";
 import type { UnstableDevWorker } from "wrangler";
 import { describe, expect, it, beforeAll, afterAll } from "vitest";
+import { AddressSearchResponse } from ".";
 
 describe("Worker", () => {
 	let worker: UnstableDevWorker;
@@ -15,11 +16,27 @@ describe("Worker", () => {
 		await worker.stop();
 	});
 
-	it("should return Hello World", async () => {
-		const resp = await worker.fetch();
+	it("should 404 for a random route", async () => {
+		const resp = await worker.fetch('/dfsdf');
 		if (resp) {
-			const text = await resp.text();
-			expect(text).toMatchInlineSnapshot(`"Hello World!"`);
+			expect(resp.status).toBe(404);
 		}
+	});
+
+	describe("/search", () => {
+		it("should 400 if wrong arguments", async () => {
+			const resp = await worker.fetch('/search?blah=foo');
+			if (resp) {
+				expect(resp.status).toBe(400);
+			}
+		});
+
+		it("should return something if correct arguments", async () => {
+			const resp = await worker.fetch("/search?postCode=CB43LL&houseNumber=5+Gibbons+House");
+			if (resp) {
+				const json: AddressSearchResponse = await resp.json();
+				expect(json.id).toEqual('200004164294');
+			}
+		});
 	});
 });

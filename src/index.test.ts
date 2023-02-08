@@ -39,6 +39,11 @@ describe("Worker", () => {
 				expect(json.id).toEqual('200004164294');
 			}
 		});
+
+		it("should return 404 if no address match", async () => {
+			const resp = await worker.fetch("/search?postCode=CB74RT&houseNumber=55");
+			expect(resp.status).toBe(404);
+		});
 	});
 
 	describe("/bins", () => {
@@ -63,6 +68,11 @@ describe("Worker", () => {
 				const json: BinSchedule = await resp.json();
 				expect(json.isBinStore).toEqual(true);
 			}
+		});
+
+		it("should return 404 if no address match", async () => {
+			const resp = await worker.fetch("/bins?postCode=CB74RT&houseNumber=55");
+			expect(resp.status).toBe(404);
 		});
 	});
 });

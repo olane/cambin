@@ -58,6 +58,9 @@ const jsonResponseHeaders = {
 }
 
 const houseNumbersMatch = (a: string, b: string) => {
+	if (a == null || b == null) {
+		return false;
+	}
 	return a.localeCompare(b, undefined, { sensitivity: 'accent' }) === 0;
 };
 

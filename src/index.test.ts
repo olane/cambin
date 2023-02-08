@@ -71,7 +71,7 @@ describe("Worker", () => {
 		});
 
 		it("should return 404 if no address match", async () => {
-			const resp = await worker.fetch("/bins?postCode=CB74RT&houseNumber=55");
+			const resp = await worker.fetch("/bins?postCode=CB74JA&houseNumber=55");
 			expect(resp.status).toBe(404);
 		});
 	});

@@ -51,6 +51,12 @@ export interface BinSchedule {
 	containers: BinContainer[]
 }
 
+const jsonResponseHeaders = {
+	headers: {
+		'content-type': 'application/json;charset=UTF-8',
+	},
+}
+
 const houseNumbersMatch = (a: string, b: string) => {
 	return a.localeCompare(b, undefined, { sensitivity: 'accent' }) === 0;
 };
@@ -100,7 +106,7 @@ export default {
 
 			const searchResult = await searchAddress(postCode, houseNumber);
 			if(searchResult != undefined) {
-				return new Response(JSON.stringify(searchResult));
+				return new Response(JSON.stringify(searchResult), jsonResponseHeaders);
 			}
 
 			return new Response("No result found for that postcode and house number", {status: 404});
@@ -113,7 +119,7 @@ export default {
 
 			if(uprn != null) {
 				const binSchedule = await getBinSchedule(uprn);
-				return new Response(JSON.stringify(binSchedule));
+				return new Response(JSON.stringify(binSchedule), jsonResponseHeaders);
 			}
 			else if(postCode != null && houseNumber != null) {
 				const searchResult = await searchAddress(postCode, houseNumber);
@@ -124,7 +130,7 @@ export default {
 
 				const uprn = searchResult.id;
 				const binSchedule = await getBinSchedule(uprn);
-				return new Response(JSON.stringify(binSchedule));
+				return new Response(JSON.stringify(binSchedule), jsonResponseHeaders);
 			}
 			else {
 				return new Response("uprn, or houseName and postCode, must be specified", {status: 400});

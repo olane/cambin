@@ -59,6 +59,7 @@ describe("Worker", () => {
 			if (resp) {
 				const json: BinSchedule = await resp.json();
 				expect(json.isBinStore).toEqual(true);
+				expect(json.collections.length).toBeGreaterThan(0);
 			}
 		});
 
@@ -67,6 +68,7 @@ describe("Worker", () => {
 			if (resp) {
 				const json: BinSchedule = await resp.json();
 				expect(json.isBinStore).toEqual(true);
+				expect(json.collections.length).toBeGreaterThan(0);
 			}
 		});
 

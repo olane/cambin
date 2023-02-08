@@ -51,6 +51,40 @@ export async function searchAddress(postCode: string, houseNumber: string): Prom
 	return searchResult;
 }
 
+const collectionsMatch = (a: BinCollection, b: BinCollection) => {
+    if (a.slippedCollection != b.slippedCollection) {
+        return false;
+    }
+
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    return dateA.getFullYear() === dateB.getFullYear()
+        && dateA.getMonth() === dateB.getMonth()
+        && dateA.getDate() === dateB.getDate();
+}
+
+//Sometimes collections for the same day are listed as two separate entries with slightly different times, consolidate them
+const consolidateBinSchedule = (input: BinSchedule): BinSchedule => {
+    const newCollectionsList: BinCollection[] = [];
+
+    for (const collection of input.collections) {
+        const existingEntry = newCollectionsList.find(x => collectionsMatch(x, collection));
+
+        if(existingEntry == null) {
+            newCollectionsList.push(collection);
+        }
+        else {
+            existingEntry.roundTypes = existingEntry.roundTypes.concat(collection.roundTypes);
+        }
+    }
+
+    return {
+        ...input,
+        collections: newCollectionsList,
+    }
+}
+
 const getBinScheduleUri = (uprn: string, numberOfCollections: number) => {
 	return `${apiHost}collection/search/${uprn}/?numberOfCollections=${numberOfCollections}`;
 };
@@ -60,5 +94,5 @@ export async function getBinSchedule(uprn: string, numberOfCollections: number =
 	const fetchResult = await fetch(uri);
 	const binSchedule: BinSchedule = await fetchResult.json();
 
-	return binSchedule;
+	return consolidateBinSchedule(binSchedule);
 }

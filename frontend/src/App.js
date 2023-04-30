@@ -4,7 +4,7 @@ import { BinFetcherForm } from './BinFetcherForm';
 import { Spinner } from './Spinner';
 import { BinResult } from './BinResult';
 
-const baseApiUrl = "http://cambin.olane.workers.dev/";
+const baseApiUrl = "https://cambin.olane.workers.dev/";
 
 function App() {
   const [fetchingBins, setFetchingBins] = useState(false);

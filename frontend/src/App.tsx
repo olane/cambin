@@ -1,10 +1,40 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BinFetcherForm } from './BinFetcherForm';
 import { Spinner } from './Spinner';
 import { BinResult } from './BinResult';
+import { AddressSearchResponse, BinSchedule } from './BinTypes';
 
 const baseApiUrl = "https://cambin.olane.workers.dev/";
+
+const renderMainSection = (
+  fetchingBins: boolean,
+  error: boolean,
+  onLoadBins: (postcode: string, houseNumber: string) => Promise<void>,
+  onResetForm: () => Promise<void>,
+  binResult?: BinSchedule,
+  addressResult?: AddressSearchResponse) => {
+
+  const shouldShowForm = !fetchingBins && binResult === null && error === false;
+
+  if(shouldShowForm) {
+    return <BinFetcherForm onLoadBins={onLoadBins}/>;
+  }
+  else if(fetchingBins) {
+    return <Spinner />;
+  }
+  else if(binResult != null && addressResult != null) {
+    return (
+      <div>
+        <BinResult result={binResult} address={addressResult}/>
+        <button className="standard-button" onClick={onResetForm}>Change address</button>
+      </div>
+    );
+  }
+  else if (error) {
+    return <div>Error!</div>
+  }
+}
 
 function App() {
   const [fetchingBins, setFetchingBins] = useState(false);
@@ -12,7 +42,7 @@ function App() {
   const [binResult, setBinResult] = useState(null);
   const [addressResult, setAddressResult] = useState(null);
 
-  const onLoadBins = async (postcode, houseNumber) => {
+  const onLoadBins = async (postcode: string, houseNumber: string) => {
     setFetchingBins(true);
 
     // get bins
@@ -43,10 +73,6 @@ function App() {
     setError(false);
     setBinResult(null);
   };
-
-  const shouldShowForm = !fetchingBins && binResult === null && error === false;
-  const shouldShowResult = binResult || error;
-
   useEffect(() => {
     const postcode = localStorage.getItem("postcode");
     const houseNumber = localStorage.getItem("houseNumber");
@@ -59,12 +85,7 @@ function App() {
   return (
     <div className="app-wrapper">
       <h1>CamBins</h1>
-      {shouldShowForm && <BinFetcherForm onLoadBins={onLoadBins}/>}
-      {fetchingBins && <Spinner/>}
-      {shouldShowResult && <div>
-        <BinResult result={binResult} address={addressResult} error={error}/>
-        <button onClick={onResetForm}>Change address</button>
-      </div>}
+      {renderMainSection(fetchingBins, error, onLoadBins, onResetForm, binResult, addressResult)}
     </div>
   );
 }

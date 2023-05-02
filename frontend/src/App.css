@@ -27,7 +27,7 @@ a {
   margin-top: 20px;
 }
 
-.bin-form button {
+button.standard-button {
   background-color: #282c34;
   color: white;
   border: 1px solid white;
@@ -35,12 +35,12 @@ a {
   border-radius: 8px;
 }
 
-.bin-form button:hover {
+button.standard-button:hover {
   background-color: #7183a8;
   cursor: pointer;
 }
 
-.bin-form button:active {
+button.standard-button:active {
   background-color: #3a404c;
   cursor: pointer;
 }

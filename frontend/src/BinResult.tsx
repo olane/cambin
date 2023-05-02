@@ -1,21 +1,29 @@
-function isToday (date) { 
+import React, {FC} from 'react';
+import { AddressSearchResponse, BinCollection, BinSchedule } from './BinTypes';
+
+interface BinResultProps {
+    result: BinSchedule,
+    address: AddressSearchResponse
+}
+
+function isToday (date: Date) { 
     const tomorrow = new Date();
     return isSameDate(date, tomorrow);
 }
 
-function isTomorrow (date) { 
+function isTomorrow (date: Date) { 
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     return isSameDate(date, tomorrow);
 }
 
-function isSameDate(date1, date2) {
+function isSameDate(date1: Date, date2: Date) {
     return date1.getDate() === date2.getDate() &&
         date1.getMonth() === date2.getMonth() &&
         date1.getFullYear() === date2.getFullYear();
 }
 
-function renderSingleCollection(collection, i) {
+function renderSingleCollection(collection: BinCollection, i: number) {
     const roundTypesString = collection.roundTypes.join(" and ");
 
     const date = new Date(collection.date);
@@ -40,8 +48,8 @@ function renderSingleCollection(collection, i) {
     return (<p key={i}>{roundTypesString} collection on {dateString}{collection.slippedCollection && " - RESCHEDULED"}</p>)
 }
 
-function addressToString(address) {
-    const toCapsCase = (str) => str
+function addressToString(address: AddressSearchResponse) {
+    const toCapsCase = (str: string) => str
         .split(' ')
         .map(x => x.toLocaleLowerCase())
         .map(x => x.charAt(0).toLocaleUpperCase() + x.slice(1))
@@ -50,11 +58,7 @@ function addressToString(address) {
     return `${address.houseNumber} ${toCapsCase(address.street)}`;
 }
 
-export function BinResult({result, address, error}) {
-    if(error) {
-        return (<div>Error: {error}</div>);
-    }
-
+export const BinResult : FC<BinResultProps> = ({result, address}) => {
     const collectionsRendered = result.collections.map((x, i) => renderSingleCollection(x, i));
 
     return (

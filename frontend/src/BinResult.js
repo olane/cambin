@@ -40,7 +40,17 @@ function renderSingleCollection(collection) {
     return (<p>{roundTypesString} collection on {dateString}{collection.slippedCollection && " - RESCHEDULED"}</p>)
 }
 
-export function BinResult({result, error}) {
+function addressToString(address) {
+    const toCapsCase = (str) => str
+        .split(' ')
+        .map(x => x.toLocaleLowerCase())
+        .map(x => x.charAt(0).toLocaleUpperCase() + x.slice(1))
+        .join(" ");
+
+    return `${address.houseNumber} ${toCapsCase(address.street)}`;
+}
+
+export function BinResult({result, address, error}) {
     if(error) {
         return (<div>Error: {error}</div>);
     }
@@ -49,7 +59,7 @@ export function BinResult({result, error}) {
 
     return (
         <div className="bin-result">
-            <h2>Upcoming collections:</h2>
+            <h2>Upcoming collections for {addressToString(address)}:</h2>
             {collectionsRendered}
         </div>
     );

@@ -53,7 +53,13 @@ export default {
 
 				const uprn = searchResult.id;
 				const binSchedule = await getBinSchedule(uprn);
-				return new Response(JSON.stringify(binSchedule), jsonResponseHeaders);
+
+				const response = {
+					address: searchResult,
+					schedule: binSchedule
+				};
+
+				return new Response(JSON.stringify(response), jsonResponseHeaders);
 			}
 			else {
 				return new Response("uprn, or houseName and postCode, must be specified", {status: 400});

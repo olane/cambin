@@ -10,6 +10,7 @@ function App() {
   const [fetchingBins, setFetchingBins] = useState(false);
   const [error, setError] = useState(false);
   const [binResult, setBinResult] = useState(null);
+  const [addressResult, setAddressResult] = useState(null);
 
   const onLoadBins = async (postcode, houseNumber) => {
     setFetchingBins(true);
@@ -25,7 +26,8 @@ function App() {
 
     if (result.ok) {
       const json = await result.json();
-      setBinResult(json);
+      setBinResult(json.schedule);
+      setAddressResult(json.address);
       localStorage.setItem("postcode", postcode);
       localStorage.setItem("houseNumber", houseNumber);
     }
@@ -60,7 +62,7 @@ function App() {
       {shouldShowForm && <BinFetcherForm onLoadBins={onLoadBins}/>}
       {fetchingBins && <Spinner/>}
       {shouldShowResult && <div>
-        <BinResult result={binResult} error={error}/>
+        <BinResult result={binResult} address={addressResult} error={error}/>
         <button onClick={onResetForm}>Change address</button>
       </div>}
     </div>

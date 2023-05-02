@@ -15,7 +15,7 @@ function isSameDate(date1, date2) {
         date1.getFullYear() === date2.getFullYear();
 }
 
-function renderSingleCollection(collection) {
+function renderSingleCollection(collection, i) {
     const roundTypesString = collection.roundTypes.join(" and ");
 
     const date = new Date(collection.date);
@@ -37,7 +37,7 @@ function renderSingleCollection(collection) {
         dateString += " (tomorrow!)";
     }
 
-    return (<p>{roundTypesString} collection on {dateString}{collection.slippedCollection && " - RESCHEDULED"}</p>)
+    return (<p key={i}>{roundTypesString} collection on {dateString}{collection.slippedCollection && " - RESCHEDULED"}</p>)
 }
 
 function addressToString(address) {
@@ -55,7 +55,7 @@ export function BinResult({result, address, error}) {
         return (<div>Error: {error}</div>);
     }
 
-    const collectionsRendered = result.collections.map(renderSingleCollection);
+    const collectionsRendered = result.collections.map((x, i) => renderSingleCollection(x, i));
 
     return (
         <div className="bin-result">

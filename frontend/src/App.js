@@ -11,8 +11,6 @@ function App() {
   const [error, setError] = useState(false);
   const [binResult, setBinResult] = useState(null);
 
-  const shouldShowForm = !fetchingBins && binResult === null && error === false;
-
   const onLoadBins = async (postcode, houseNumber) => {
     setFetchingBins(true);
 
@@ -36,12 +34,24 @@ function App() {
     setFetchingBins(false);
   };
 
+  const onResetForm = () => {
+    setFetchingBins(false);
+    setError(false);
+    setBinResult(null);
+  };
+
+  const shouldShowForm = !fetchingBins && binResult === null && error === false;
+  const shouldShowResult = binResult || error;
+
   return (
     <div className="app-wrapper">
       <h1>CamBins</h1>
       {shouldShowForm && <BinFetcherForm onLoadBins={onLoadBins}/>}
       {fetchingBins && <Spinner/>}
-      {(binResult || error) && <BinResult result={binResult} error={error}/>}
+      {shouldShowResult && <div>
+        <BinResult result={binResult} error={error}/>
+        <button onClick={onResetForm}>Change address</button>
+      </div>}
     </div>
   );
 }

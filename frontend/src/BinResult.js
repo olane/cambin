@@ -37,19 +37,19 @@ function renderSingleCollection(collection) {
         dateString += " (tomorrow!)";
     }
 
-    return (<p>{roundTypesString} collection on {dateString}</p>)
+    return (<p>{roundTypesString} collection on {dateString}{collection.slippedCollection && " - RESCHEDULED"}</p>)
 }
 
 export function BinResult({result, error}) {
     if(error) {
-        return (<div>oh no</div>);
+        return (<div>Error: {error}</div>);
     }
 
     const collectionsRendered = result.collections.map(renderSingleCollection);
 
     return (
         <div className="bin-result">
-            <h2>Your upcoming collections:</h2>
+            <h2>Upcoming collections:</h2>
             {collectionsRendered}
         </div>
     );

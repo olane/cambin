@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { BinFetcherForm } from './BinFetcherForm';
 import { Spinner } from './Spinner';
@@ -26,6 +26,8 @@ function App() {
     if (result.ok) {
       const json = await result.json();
       setBinResult(json);
+      localStorage.setItem("postcode", postcode);
+      localStorage.setItem("houseNumber", houseNumber);
     }
     else {
       setError(true)
@@ -42,6 +44,15 @@ function App() {
 
   const shouldShowForm = !fetchingBins && binResult === null && error === false;
   const shouldShowResult = binResult || error;
+
+  useEffect(() => {
+    const postcode = localStorage.getItem("postcode");
+    const houseNumber = localStorage.getItem("houseNumber");
+
+    if(postcode && houseNumber){
+      onLoadBins(postcode, houseNumber);
+    }
+  }, []);
 
   return (
     <div className="app-wrapper">

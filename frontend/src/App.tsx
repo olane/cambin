@@ -11,7 +11,7 @@ const renderMainSection = (
   fetchingBins: boolean,
   error: boolean,
   onLoadBins: (postcode: string, houseNumber: string) => Promise<void>,
-  onResetForm: () => Promise<void>,
+  onResetForm: () => void,
   binResult?: BinSchedule,
   addressResult?: AddressSearchResponse) => {
 
@@ -39,8 +39,8 @@ const renderMainSection = (
 function App() {
   const [fetchingBins, setFetchingBins] = useState(false);
   const [error, setError] = useState(false);
-  const [binResult, setBinResult] = useState(null);
-  const [addressResult, setAddressResult] = useState(null);
+  const [binResult, setBinResult] = useState();
+  const [addressResult, setAddressResult] = useState();
 
   const onLoadBins = async (postcode: string, houseNumber: string) => {
     setFetchingBins(true);
@@ -71,7 +71,7 @@ function App() {
   const onResetForm = () => {
     setFetchingBins(false);
     setError(false);
-    setBinResult(null);
+    setBinResult(undefined);
   };
   useEffect(() => {
     const postcode = localStorage.getItem("postcode");

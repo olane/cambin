@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import { AddressSearchResponse, BinCollection, BinSchedule } from './BinTypes';
+import { AddressSearchResponse, BinCollection, BinSchedule, RoundType } from './BinTypes';
 import { isThisWeek, isToday, isTomorrow } from './dateUtils';
 
 interface BinResultProps {
@@ -7,27 +7,35 @@ interface BinResultProps {
     address: AddressSearchResponse
 }
 
-function renderSingleCollection(collection: BinCollection, i: number) {
-    const roundTypesString = collection.roundTypes.join(" and ");
+function roundTypeToNiceString(roundType: RoundType): string {
+    const roundTypeNameMap = {
+        "ORGANIC": "green",
+        "RECYCLE": "blue",
+        "DOMESTIC": "black"
+    }
 
-    let dateString = collection.date.toLocaleDateString(
-        'en-gb',
+    return roundTypeNameMap[roundType];
+}
+
+function renderSingleCollection(collection: BinCollection, i: number) {
+    const roundTypesString = collection.roundTypes.map(roundTypeToNiceString).join(" and ");
+
+    const dateString = collection.date.toLocaleDateString(
+        "en-gb",
         {
-            weekday: "long",
-            month: 'long',
-            day: 'numeric',
+            month: "long",
+            day: "numeric",
         }
     );
-    
-    if(isToday(collection.date)) {
-        dateString += " (today!)";
-    }
-    
-    if(isTomorrow(collection.date)) {
-        dateString += " (tomorrow!)";
-    }
 
-    return (<p key={i}>{roundTypesString} collection on {dateString}{collection.slippedCollection && " - RESCHEDULED"}</p>)
+    const dayString = collection.date.toLocaleDateString(
+        "en-gb",
+        {
+            weekday: "long",
+        }
+    );
+
+    return (<p key={i}>{dateString} ({dayString}){collection.slippedCollection && " - RESCHEDULED"}: {roundTypesString}</p>)
 }
 
 function addressToString(address: AddressSearchResponse) {

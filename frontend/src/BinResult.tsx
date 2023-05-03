@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import { AddressSearchResponse, BinCollection, BinSchedule } from './BinTypes';
-import { isToday, isTomorrow } from './dateUtils';
+import { isThisWeek, isToday, isTomorrow } from './dateUtils';
 
 interface BinResultProps {
     result: BinSchedule,
@@ -40,13 +40,34 @@ function addressToString(address: AddressSearchResponse) {
     return `${address.houseNumber} ${toCapsCase(address.street)}`;
 }
 
+const renderSection = (collections: BinCollection[], sectionName: string) => {
+    if(collections.length === 0) {
+        return null;
+    }
+
+    return (
+        <>
+            <h3>{sectionName}</h3>
+            {collections.map(renderSingleCollection)}
+        </>
+    )
+}
+
 export const BinResult : FC<BinResultProps> = ({result, address}) => {
-    const collectionsRendered = result.collections.map((x, i) => renderSingleCollection(x, i));
+    const collections = result.collections;
+
+    const collectionsToday = collections.filter(x => isToday(x.date));
+    const collectionsTomorrow = collections.filter(x => isTomorrow(x.date));
+    const collectionsThisWeekButNotTodayOrTomorrow = collections.filter(x => isThisWeek(x.date) && !isToday(x.date) && !isTomorrow(x.date));
+    const collectionsNotThisWeek = collections.filter(x => !isThisWeek(x.date));
 
     return (
         <div className="bin-result">
-            <h2>Upcoming collections for {addressToString(address)}:</h2>
-            {collectionsRendered}
+            <h2>{addressToString(address)}</h2>
+            {renderSection(collectionsToday, "Today")}
+            {renderSection(collectionsTomorrow, "Tomorrow")}
+            {renderSection(collectionsThisWeekButNotTodayOrTomorrow, "This week")}
+            {renderSection(collectionsNotThisWeek, "Upcoming")}
         </div>
     );
 }

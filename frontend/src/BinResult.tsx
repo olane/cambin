@@ -1,26 +1,10 @@
 import React, {FC} from 'react';
 import { AddressSearchResponse, BinCollection, BinSchedule } from './BinTypes';
+import { isToday, isTomorrow } from './dateUtils';
 
 interface BinResultProps {
     result: BinSchedule,
     address: AddressSearchResponse
-}
-
-function isToday (date: Date) { 
-    const tomorrow = new Date();
-    return isSameDate(date, tomorrow);
-}
-
-function isTomorrow (date: Date) { 
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return isSameDate(date, tomorrow);
-}
-
-function isSameDate(date1: Date, date2: Date) {
-    return date1.getDate() === date2.getDate() &&
-        date1.getMonth() === date2.getMonth() &&
-        date1.getFullYear() === date2.getFullYear();
 }
 
 function renderSingleCollection(collection: BinCollection, i: number) {

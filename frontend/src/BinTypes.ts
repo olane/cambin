@@ -7,7 +7,7 @@ export interface AddressSearchResponse {
 }
 
 export interface BinCollection {
-	date: string,
+	date: Date,
 	roundTypes: RoundType[],
 	slippedCollection: boolean
 }
@@ -28,4 +28,9 @@ export interface BinSchedule {
 	isBinStore: boolean,
 	events: unknown[],
 	containers: BinContainer[]
+}
+
+export interface BinQueryResponse {
+    schedule: BinSchedule,
+    address: AddressSearchResponse
 }

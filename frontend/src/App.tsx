@@ -4,8 +4,7 @@ import { BinFetcherForm } from './BinFetcherForm';
 import { Spinner } from './Spinner';
 import { BinResult } from './BinResult';
 import { AddressSearchResponse, BinSchedule } from './BinTypes';
-
-const baseApiUrl = "https://cambin.olane.workers.dev/";
+import { getBins } from './BinService';
 
 const renderMainSection = (
   fetchingBins: boolean,
@@ -39,29 +38,21 @@ const renderMainSection = (
 function App() {
   const [fetchingBins, setFetchingBins] = useState(false);
   const [error, setError] = useState(false);
-  const [binResult, setBinResult] = useState();
-  const [addressResult, setAddressResult] = useState();
+  const [binResult, setBinResult] = useState<BinSchedule>();
+  const [addressResult, setAddressResult] = useState<AddressSearchResponse>();
 
   const onLoadBins = async (postcode: string, houseNumber: string) => {
     setFetchingBins(true);
 
     // get bins
-    const fetchUrl = baseApiUrl + `bins?postCode=${encodeURIComponent(postcode)}&houseNumber=${encodeURIComponent(houseNumber)}`;
-    const result = await fetch(fetchUrl, {
-      method: "GET",
-      headers: {
-        Accept: 'application/json',
-      }
-    });
-
-    if (result.ok) {
-      const json = await result.json();
-      setBinResult(json.schedule);
-      setAddressResult(json.address);
+    try {
+      const result = await getBins(postcode, houseNumber);
+      setBinResult(result.schedule);
+      setAddressResult(result.address);
       localStorage.setItem("postcode", postcode);
       localStorage.setItem("houseNumber", houseNumber);
     }
-    else {
+    catch(e) {
       setError(true)
     }
 
@@ -73,6 +64,7 @@ function App() {
     setError(false);
     setBinResult(undefined);
   };
+  
   useEffect(() => {
     const postcode = localStorage.getItem("postcode");
     const houseNumber = localStorage.getItem("houseNumber");
@@ -91,3 +83,4 @@ function App() {
 }
 
 export default App;
+

@@ -10,9 +10,7 @@ interface BinResultProps {
 function renderSingleCollection(collection: BinCollection, i: number) {
     const roundTypesString = collection.roundTypes.join(" and ");
 
-    const date = new Date(collection.date);
-
-    let dateString = date.toLocaleDateString(
+    let dateString = collection.date.toLocaleDateString(
         'en-gb',
         {
             weekday: "long",
@@ -21,11 +19,11 @@ function renderSingleCollection(collection: BinCollection, i: number) {
         }
     );
     
-    if(isToday(date)) {
+    if(isToday(collection.date)) {
         dateString += " (today!)";
     }
     
-    if(isTomorrow(date)) {
+    if(isTomorrow(collection.date)) {
         dateString += " (tomorrow!)";
     }
 

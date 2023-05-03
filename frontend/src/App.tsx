@@ -14,7 +14,7 @@ const renderMainSection = (
   binResult?: BinSchedule,
   addressResult?: AddressSearchResponse) => {
 
-  const shouldShowForm = !fetchingBins && binResult === null && error === false;
+  const shouldShowForm = !fetchingBins && binResult === undefined && error === false;
 
   if(shouldShowForm) {
     return <BinFetcherForm onLoadBins={onLoadBins}/>;
@@ -64,7 +64,7 @@ function App() {
     setError(false);
     setBinResult(undefined);
   };
-  
+
   useEffect(() => {
     const postcode = localStorage.getItem("postcode");
     const houseNumber = localStorage.getItem("houseNumber");

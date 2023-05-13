@@ -16,7 +16,7 @@ export const BinFetcherForm: FC<BinFetcherFormProps> = ({onLoadBins}) => {
         <div className="bin-form">
             <label>Postcode: <input type='text' onChange={e => setPostcode(e.target.value)}></input></label>
             <label>House number: <input type='text' onChange={e => setHouseNumber(e.target.value)}></input></label>
-            <button className="standard-button" onClick={loadBins}>Bin Me</button>
+            <button className="standard-button primary" onClick={loadBins}>Bin me</button>
         </div>
     );
 }

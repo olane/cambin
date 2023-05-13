@@ -1,12 +1,25 @@
+:root {
+    /* Palette */
+    --dark-green: #042a2b;
+    --blue-munsell: #62929e;
+    --mint-cream: #f1f7ed;
+    --bittersweet: #ee6352;
+    --coral: #fb8f67;
+
+    /* Utility */
+    --white: #fff;
+    --blue-munsell-light: #76aebc;
+}
+
 .app-wrapper {
-    background-color: #282c34;
+    background-color: var(--dark-green);
+    color: var(--mint-cream);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    color: white;
     padding: 1em;
 }
 
@@ -16,7 +29,7 @@ h1 {
 }
 
 a {
-    color: #61dafb;
+    color: var(--blue-munsell);
 }
 
 .bin-form {
@@ -29,20 +42,47 @@ a {
     margin-top: 20px;
 }
 
-button.standard-button {
-    background-color: #282c34;
-    color: white;
-    border: 1px solid white;
+.standard-button {
+    border: none;
     font-size: 1em;
     border-radius: 8px;
+    padding: 0.25em 1em;
 }
 
-button.standard-button:hover {
-    background-color: #7183a8;
+.standard-button:hover {
     cursor: pointer;
 }
 
-button.standard-button:active {
-    background-color: #3a404c;
+.standard-button:active {
     cursor: pointer;
+}
+
+.standard-button.primary {
+    background-color: var(--bittersweet);
+    color: var(--white);
+}
+
+.standard-button.primary:hover {
+    background-color: var(--coral);
+}
+
+.standard-button.primary:active {
+    background-color: var(--bittersweet);
+}
+
+.standard-button.secondary {
+    background-color: var(--blue-munsell);
+    color: var(--white);
+}
+
+.standard-button.secondary:hover {
+    background-color: var(--blue-munsell-light);
+}
+
+.standard-button.secondary:active {
+    background-color: var(--blue-munsell);
+}
+
+.change-address-button {
+    font-size: 18px;
 }

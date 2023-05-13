@@ -26,7 +26,7 @@ const renderMainSection = (
     return (
       <div>
         <BinResult result={binResult} address={addressResult}/>
-        <button className="standard-button" onClick={onResetForm}>Change address</button>
+        <button className="standard-button secondary change-address-button" onClick={onResetForm}>Change address</button>
       </div>
     );
   }

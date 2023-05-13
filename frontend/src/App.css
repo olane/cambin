@@ -32,13 +32,32 @@ a {
     color: var(--blue-munsell);
 }
 
+input[type=text] {
+    background-color: var(--dark-green);
+    border: 1px solid var(--blue-munsell);
+    border-radius: 5px;
+    color: var(--mint-cream);
+    font-size: 0.9em;
+    width: 12ch;
+}
+
 .bin-form {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 }
 
-.bin-form * {
+.bin-form label {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bin-form label input {
+    margin-left: 0.5em;
+}
+
+.bin-form button {
     margin-top: 20px;
 }
 

@@ -17,10 +17,14 @@ export const UpcomingCollections : FC<UpcomingCollectionsProps> = (props) => {
         ? <UpcomingCollectionsCalendar schedule={props.schedule} address={props.address} />
         : <UpcomingCollectionsList schedule={props.schedule} address={props.address} />;
 
+    const buttonText = showCalendar
+        ? "Show list"
+        : "Show calendar";
+
     return (
         <>
             {collectionsElement}
-            <button className="standard-button secondary toggle-view-button" onClick={onToggleView}>Toggle view</button>
+            <button className="standard-button secondary toggle-view-button" onClick={onToggleView}>{buttonText}</button>
         </>
     );
 }

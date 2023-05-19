@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/App.css';
 import { BinFetcherForm } from './BinFetcherForm';
 import { Spinner } from './Spinner';
-import { BinResult } from './BinResult';
+import { UpcomingCollections } from './UpcomingCollections';
 import { AddressSearchResponse, BinSchedule } from '../model/BinTypes';
 import { getBins } from '../services/BinService';
 
@@ -25,7 +25,7 @@ const renderMainSection = (
   else if(binResult != null && addressResult != null) {
     return (
       <div>
-        <BinResult result={binResult} address={addressResult}/>
+        <UpcomingCollections schedule={binResult} address={addressResult}/>
         <button className="standard-button secondary change-address-button" onClick={onResetForm}>Change address</button>
       </div>
     );

@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import { AddressSearchResponse, BinCollection, BinSchedule, RoundType } from '../model/BinTypes';
 import { isThisWeek, isToday, isTomorrow } from '../utils/dateUtils';
 
-interface BinResultProps {
-    result: BinSchedule,
+interface UpcomingCollectionsProps {
+    schedule: BinSchedule,
     address: AddressSearchResponse
 }
 
@@ -61,7 +61,7 @@ const renderSection = (collections: BinCollection[], sectionName: string) => {
     )
 }
 
-export const BinResult : FC<BinResultProps> = ({result, address}) => {
+export const UpcomingCollections : FC<UpcomingCollectionsProps> = ({schedule: result, address}) => {
     const collections = result.collections;
 
     const collectionsToday = collections.filter(x => isToday(x.date));

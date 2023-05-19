@@ -97,6 +97,8 @@ input[type=text] {
 .standard-button.secondary {
     background-color: var(--blue-munsell);
     color: var(--white);
+    margin-top: 1em;
+    margin-right: 1em;
 }
 
 .standard-button.secondary:hover {

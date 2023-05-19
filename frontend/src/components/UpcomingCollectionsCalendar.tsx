@@ -2,13 +2,9 @@ import React, { useState, FC } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { TileClassNameFunc, Value } from 'react-calendar/dist/cjs/shared/types';
-import { AddressSearchResponse, BinSchedule, RoundType } from '../model/BinTypes';
+import { BinSchedule, RoundType } from '../model/BinTypes';
 import { isSameDate } from '../utils/dateUtils';
-
-interface UpcomingCollectionsCalendarProps {
-    schedule: BinSchedule,
-    address: AddressSearchResponse
-}
+import { UpcomingCollectionsProps } from './UpcomingCollections';
 
 function roundTypeToClass(roundType: RoundType) {
     switch(roundType){
@@ -36,7 +32,7 @@ const getTileClassNameFunc = (schedule: BinSchedule) => {
     return tileClassName;
 }
 
-export const UpcomingCollectionsCalendar: FC<UpcomingCollectionsCalendarProps> = ({schedule, address}) => {
+export const UpcomingCollectionsCalendar: FC<UpcomingCollectionsProps> = ({schedule, address}) => {
     const [value, setValue] = useState<Value>(new Date());
 
     function onChange(nextValue: Value) {

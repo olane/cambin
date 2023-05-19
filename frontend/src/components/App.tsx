@@ -5,6 +5,7 @@ import { Spinner } from './Spinner';
 import { UpcomingCollections } from './UpcomingCollections';
 import { AddressSearchResponse, BinSchedule } from '../model/BinTypes';
 import { getBins } from '../services/BinService';
+import { UpcomingCollectionsCalendar } from './UpcomingCollectionsCalendar';
 
 const renderMainSection = (
     fetchingBins: boolean,

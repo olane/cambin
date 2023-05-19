@@ -9,6 +9,11 @@
     /* Utility */
     --white: #fff;
     --blue-munsell-light: #76aebc;
+
+    /* Bins */
+    --bin-black: #333;
+    --bin-blue: rgb(85, 85, 201);
+    --bin-green: rgb(70, 132, 70);
 }
 
 .app-wrapper {
@@ -104,4 +109,52 @@ input[type=text] {
 
 .change-address-button {
     font-size: 18px;
+}
+
+/* Calendar */
+.react-calendar.collections-calendar {
+    background: var(--blue-munsell);
+    border: none;
+    border-radius: 8px;
+}
+
+.collections-calendar .react-calendar__tile {
+    color: var(--mint-cream);
+}
+.collections-calendar .react-calendar__tile:hover {
+    background: var(--blue-munsell);
+}
+
+.collections-calendar .react-calendar__navigation__label__labelText,
+.collections-calendar .react-calendar__navigation__arrow {
+    color: var(--mint-cream);
+}
+
+.collections-calendar .react-calendar__tile--active {
+    /* basically an inner solid border that doesn't mess with layout */
+    box-shadow: inset 1px 1px var(--mint-cream), inset -1px -1px var(--mint-cream);
+}
+
+.collections-calendar .react-calendar__tile.react-calendar__month-view__days__day--weekend {
+    color: var(--coral)
+}
+
+.collections-calendar .react-calendar__tile.calendar-bin-day {
+    color: var(--mint-cream);
+}
+
+.collections-calendar .react-calendar__tile.calendar-bin-day.green {
+    background-color: var(--bin-green);
+}
+
+.collections-calendar .react-calendar__tile.calendar-bin-day.black {
+    background-color: var(--bin-black);
+}
+
+.collections-calendar .react-calendar__tile.calendar-bin-day.blue {
+    background-color: var(--bin-blue);
+}
+
+.collections-calendar .react-calendar__tile.calendar-bin-day.green.blue {
+    background:linear-gradient(144deg, var(--bin-green) 0 50%, var(--bin-blue) 50% 100%);
 }

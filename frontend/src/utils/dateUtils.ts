@@ -20,6 +20,20 @@ export function isThisWeek(date: Date) {
     return date > startOfWeek && date < startOfNextWeek;
 }
 
+export function isNextWeek(date: Date) {
+    const now = new Date();
+    const nextWeek = new Date(now);
+    nextWeek.setDate(now.getDate() + 7);
+
+    const nextNextWeek = new Date(now);
+    nextNextWeek.setDate(now.getDate() + 14);
+
+    const startOfNextWeek = getFirstDayOfWeek(nextWeek, 1);
+    const endOfNextWeek = getFirstDayOfWeek(nextNextWeek, 1);
+
+    return date > startOfNextWeek && date < endOfNextWeek;
+}
+
 function isSameDate(date1: Date, date2: Date) {
     return date1.getDate() === date2.getDate() &&
         date1.getMonth() === date2.getMonth() &&

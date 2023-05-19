@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import { AddressSearchResponse, BinCollection, BinSchedule, RoundType } from '../model/BinTypes';
-import { isThisWeek, isToday, isTomorrow } from '../utils/dateUtils';
+import { isThisWeek, isNextWeek, isToday, isTomorrow } from '../utils/dateUtils';
 
 interface UpcomingCollectionsProps {
     schedule: BinSchedule,
@@ -67,7 +67,8 @@ export const UpcomingCollections : FC<UpcomingCollectionsProps> = ({schedule: re
     const collectionsToday = collections.filter(x => isToday(x.date));
     const collectionsTomorrow = collections.filter(x => isTomorrow(x.date));
     const collectionsThisWeekButNotTodayOrTomorrow = collections.filter(x => isThisWeek(x.date) && !isToday(x.date) && !isTomorrow(x.date));
-    const collectionsNotThisWeek = collections.filter(x => !isThisWeek(x.date));
+    const collectionsNextWeek = collections.filter(x => isNextWeek(x.date));
+    const collectionsNotThisWeekOrNext = collections.filter(x => !isThisWeek(x.date) && !isNextWeek(x.date));
 
     return (
         <div className="bin-result">
@@ -75,7 +76,8 @@ export const UpcomingCollections : FC<UpcomingCollectionsProps> = ({schedule: re
             {renderSection(collectionsToday, "Today")}
             {renderSection(collectionsTomorrow, "Tomorrow")}
             {renderSection(collectionsThisWeekButNotTodayOrTomorrow, "This week")}
-            {renderSection(collectionsNotThisWeek, "Upcoming")}
+            {renderSection(collectionsNextWeek, "Next week")}
+            {renderSection(collectionsNotThisWeekOrNext, "Upcoming")}
         </div>
     );
 }

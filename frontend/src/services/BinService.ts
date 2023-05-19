@@ -1,4 +1,4 @@
-import { AddressSearchResponse, BinCollection, BinQueryResponse, BinSchedule } from './BinTypes';
+import { AddressSearchResponse, BinCollection, BinQueryResponse, BinSchedule } from '../model/BinTypes';
 
 export const baseApiUrl = "https://cambin.olane.workers.dev/";
 

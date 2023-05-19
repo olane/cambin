@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../styles/App.css';
 import { BinFetcherForm } from './BinFetcherForm';
 import { Spinner } from './Spinner';
 import { BinResult } from './BinResult';
-import { AddressSearchResponse, BinSchedule } from './BinTypes';
-import { getBins } from './BinService';
+import { AddressSearchResponse, BinSchedule } from '../model/BinTypes';
+import { getBins } from '../services/BinService';
 
 const renderMainSection = (
   fetchingBins: boolean,

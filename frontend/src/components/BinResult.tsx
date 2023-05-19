@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import { AddressSearchResponse, BinCollection, BinSchedule, RoundType } from './BinTypes';
-import { isThisWeek, isToday, isTomorrow } from './dateUtils';
+import { AddressSearchResponse, BinCollection, BinSchedule, RoundType } from '../model/BinTypes';
+import { isThisWeek, isToday, isTomorrow } from '../utils/dateUtils';
 
 interface BinResultProps {
     result: BinSchedule,

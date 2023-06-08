@@ -18,7 +18,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "deploy": "npx wrangler pages publish build",
+    "deploy": "npm run build && npx wrangler pages publish build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

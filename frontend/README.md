@@ -1,6 +1,34 @@
-# Getting Started with Create React App
+# Frontend - Cambridge Compass Bins
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Deployment
+
+Deployed on Cloudflare Pages. To deploy:
+
+```bash
+npm run build
+npm run deploy
+```
+
+### Custom Domain Setup
+
+The frontend is configured to run on `bins.cambridgecompass.org`. To set up the custom domain:
+
+1. **Via Cloudflare Dashboard** (Recommended):
+   - Go to **Workers & Pages** in the Cloudflare dashboard
+   - Select your Pages project (`cambin-frontend`)
+   - Go to **Custom domains**
+   - Click **Set up a domain**
+   - Enter `bins.cambridgecompass.org`
+   - Follow the DNS setup instructions if needed
+
+2. **Via Wrangler CLI** (Alternative):
+   ```bash
+   npx wrangler pages domain add bins.cambridgecompass.org
+   ```
+
+**Note**: For subdomains like `bins.cambridgecompass.org`, you'll need to add a CNAME record pointing to your Pages site (e.g., `<YOUR_SITE>.pages.dev`) if it's not already configured.
 
 ## Available Scripts
 

@@ -17,7 +17,7 @@ const stringToBool = (s: string) => {
 }
 
 export const UpcomingCollections : FC<UpcomingCollectionsProps> = (props) => {
-    const [showCalendar, setShowCalendar] = useState(false);
+    const [showCalendar, setShowCalendar] = useState(true);
     
     const onToggleView = () => {
         localStorage.setItem("showCalendarView", boolToString(!showCalendar));

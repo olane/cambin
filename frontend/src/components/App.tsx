@@ -76,8 +76,19 @@ function App() {
 
     return (
         <div className="app-wrapper">
-            <h1>CamBins</h1>
-            {renderMainSection(fetchingBins, error, onLoadBins, onResetForm, binResult, addressResult)}
+            <div className="app-content">
+                <h1>CamBins</h1>
+                {renderMainSection(fetchingBins, error, onLoadBins, onResetForm, binResult, addressResult)}
+            </div>
+            <footer className="app-footer">
+                <a
+                    href="https://cambridgecompass.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Back to cambridgecompass.org
+                </a>
+            </footer>
         </div>
     );
 }

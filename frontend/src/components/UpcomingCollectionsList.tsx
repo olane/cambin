@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import { AddressSearchResponse, BinCollection, BinSchedule, RoundType } from '../model/BinTypes';
+import { AddressSearchResponse, BinCollection, RoundType } from '../model/BinTypes';
 import { isThisWeek, isNextWeek, isToday, isTomorrow } from '../utils/dateUtils';
 import { UpcomingCollectionsProps } from './UpcomingCollections';
 

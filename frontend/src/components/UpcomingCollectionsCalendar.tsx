@@ -5,6 +5,7 @@ import { TileClassNameFunc, Value } from 'react-calendar/dist/cjs/shared/types';
 import { BinSchedule, RoundType } from '../model/BinTypes';
 import { addressToString } from '../utils/addressUtils';
 import { roundTypeToNiceString } from '../utils/binUtils';
+import { joinWithCommasAnd } from '../utils/listFormatUtils';
 import { isSameDate } from '../utils/dateUtils';
 import { UpcomingCollectionsProps } from './UpcomingCollections';
 
@@ -76,11 +77,11 @@ export const UpcomingCollectionsCalendar: FC<UpcomingCollectionsProps> = ({sched
 
     const selectedDateBinsText =
         selectedDateRoundTypes.length > 0
-            ? selectedDateRoundTypes.map(roundTypeToNiceString).join(' and ')
+            ? joinWithCommasAnd(selectedDateRoundTypes.map(roundTypeToNiceString))
             : null;
 
     const selectedDateLabel = selectedDate
-        ? selectedDate.toLocaleDateString('en-gb', { weekday: 'long', month: 'long', day: 'numeric' })
+        ? selectedDate.toLocaleDateString('en-gb', { month: 'long', day: 'numeric' })
         : '';
 
     const anyRescheduled = selectedDateCollections.some(c => c.slippedCollection);

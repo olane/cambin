@@ -3,10 +3,11 @@ import { BinCollection } from '../model/BinTypes';
 import { isThisWeek, isNextWeek, isToday, isTomorrow } from '../utils/dateUtils';
 import { addressToString } from '../utils/addressUtils';
 import { roundTypeToNiceString } from '../utils/binUtils';
+import { joinWithCommasAnd } from '../utils/listFormatUtils';
 import { UpcomingCollectionsProps } from './UpcomingCollections';
 
 function renderSingleCollection(collection: BinCollection, i: number) {
-    const roundTypesString = collection.roundTypes.map(roundTypeToNiceString).join(" and ");
+    const roundTypesString = joinWithCommasAnd(collection.roundTypes.map(roundTypeToNiceString));
 
     const dateString = collection.date.toLocaleDateString(
         "en-gb",

@@ -66,9 +66,10 @@ describe("Worker", () => {
 		it("should return something if houseNumber and postCode passed", async () => {
 			const resp = await worker.fetch("/bins?postCode=CB43LL&houseNumber=5+Gibbons+House");
 			if (resp) {
-				const json: BinSchedule = await resp.json();
-				expect(json.isBinStore).toEqual(true);
-				expect(json.collections.length).toBeGreaterThan(0);
+				const json: { address: AddressSearchResponse; schedule: BinSchedule } = await resp.json();
+				expect(json.address.id).toEqual("200004164294");
+				expect(json.schedule.isBinStore).toEqual(true);
+				expect(json.schedule.collections.length).toBeGreaterThan(0);
 			}
 		});
 

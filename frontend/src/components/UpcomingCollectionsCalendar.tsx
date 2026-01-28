@@ -6,8 +6,17 @@ import { BinSchedule, RoundType } from '../model/BinTypes';
 import { isSameDate } from '../utils/dateUtils';
 import { UpcomingCollectionsProps } from './UpcomingCollections';
 
-function roundTypeToClass(roundType: RoundType) {
-    switch(roundType){
+type BinColourClass = 'black' | 'green' | 'blue' | 'brown';
+
+const ROUND_TYPE_ORDER: Record<RoundType, number> = {
+    DOMESTIC: 0,
+    ORGANIC: 1,
+    RECYCLE: 2,
+    FOOD: 3,
+};
+
+function roundTypeToColourClass(roundType: RoundType): BinColourClass {
+    switch (roundType) {
         case 'DOMESTIC':
             return 'black';
         case 'ORGANIC':
@@ -16,9 +25,14 @@ function roundTypeToClass(roundType: RoundType) {
             return 'blue';
         case 'FOOD':
             return 'brown';
-        default:
-            return 'unknown';
     }
+}
+
+function normalizeRoundTypes(roundTypes: RoundType[]): RoundType[] {
+    // Ensure stable ordering + no duplicates (so CSS stays deterministic)
+    const unique = Array.from(new Set(roundTypes));
+    unique.sort((a, b) => ROUND_TYPE_ORDER[a] - ROUND_TYPE_ORDER[b]);
+    return unique;
 }
 
 const getTileClassNameFunc = (schedule: BinSchedule) => {
@@ -27,9 +41,13 @@ const getTileClassNameFunc = (schedule: BinSchedule) => {
         var collection = schedule.collections.find(collection => isSameDate(collection.date, date));
 
         if (collection !== undefined) {
-            const classes = collection.roundTypes.map(roundTypeToClass);
+            const normalizedRoundTypes = normalizeRoundTypes(collection.roundTypes).slice(0, 3);
+            const colourClasses = normalizedRoundTypes.map(roundTypeToColourClass);
 
-            return `calendar-bin-day ${classes.join(" ")}`;
+            const slotClasses = colourClasses.map((c, i) => `bin-${i + 1}-${c}`);
+            const countClass = `bin-count-${colourClasses.length}`;
+
+            return `calendar-bin-day ${countClass} ${slotClasses.join(' ')}`;
         }
     }
 

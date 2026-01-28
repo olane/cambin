@@ -144,22 +144,50 @@
 }
 
 
-.collections-calendar .react-calendar__tile.calendar-bin-day.green {
-    background-color: var(--bin-green);
+.collections-calendar .react-calendar__tile.calendar-bin-day {
+    /* Color slots get filled by bin-1-*, bin-2-*, bin-3-* classes */
+    --c1: transparent;
+    --c2: transparent;
+    --c3: transparent;
 }
 
-.collections-calendar .react-calendar__tile.calendar-bin-day.black {
-    background-color: var(--bin-black);
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-count-1 {
+    background: var(--c1);
 }
 
-.collections-calendar .react-calendar__tile.calendar-bin-day.blue {
-    background-color: var(--bin-blue);
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-count-2 {
+    background: linear-gradient(144deg, var(--c1) 0 50%, var(--c2) 50% 100%);
 }
 
-.collections-calendar .react-calendar__tile.calendar-bin-day.brown {
-    background-color: var(--bin-brown);
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-count-3 {
+    background: linear-gradient(
+        144deg,
+        var(--c1) 0 33.333%,
+        var(--c2) 33.333% 66.666%,
+        var(--c3) 66.666% 100%
+    );
 }
 
-.collections-calendar .react-calendar__tile.calendar-bin-day.green.blue {
-    background: linear-gradient(144deg, var(--bin-green) 0 50%, var(--bin-blue) 50% 100%);
+/* Keep bin colors visible on hover/focus (react-calendar sets background-color on hover) */
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-count-1:enabled:hover,
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-count-1:enabled:focus {
+    background: var(--c1);
 }
+
+/* Slot 1 colors */
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-1-black { --c1: var(--bin-black); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-1-green { --c1: var(--bin-green); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-1-blue  { --c1: var(--bin-blue); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-1-brown { --c1: var(--bin-brown); }
+
+/* Slot 2 colors */
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-2-black { --c2: var(--bin-black); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-2-green { --c2: var(--bin-green); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-2-blue  { --c2: var(--bin-blue); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-2-brown { --c2: var(--bin-brown); }
+
+/* Slot 3 colors */
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-3-black { --c3: var(--bin-black); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-3-green { --c3: var(--bin-green); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-3-blue  { --c3: var(--bin-blue); }
+.collections-calendar .react-calendar__tile.calendar-bin-day.bin-3-brown { --c3: var(--bin-brown); }

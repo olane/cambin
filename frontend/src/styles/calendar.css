@@ -191,3 +191,20 @@
 .collections-calendar .react-calendar__tile.calendar-bin-day.bin-3-green { --c3: var(--bin-green); }
 .collections-calendar .react-calendar__tile.calendar-bin-day.bin-3-blue  { --c3: var(--bin-blue); }
 .collections-calendar .react-calendar__tile.calendar-bin-day.bin-3-brown { --c3: var(--bin-brown); }
+
+.bin-result-calendar {
+    width: 350px; /* match .react-calendar default width */
+    max-width: 100%;
+}
+
+.calendar-selection {
+    margin-top: 0.75em;
+    text-align: center;
+    width: 100%;
+}
+
+.calendar-selection p {
+    margin: 0;
+    font-size: 18px;
+    max-width: 100%;
+}

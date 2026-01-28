@@ -1,19 +1,9 @@
 import React, {FC} from 'react';
-import { BinCollection, RoundType } from '../model/BinTypes';
+import { BinCollection } from '../model/BinTypes';
 import { isThisWeek, isNextWeek, isToday, isTomorrow } from '../utils/dateUtils';
 import { addressToString } from '../utils/addressUtils';
+import { roundTypeToNiceString } from '../utils/binUtils';
 import { UpcomingCollectionsProps } from './UpcomingCollections';
-
-function roundTypeToNiceString(roundType: RoundType): string {
-    const roundTypeNameMap = {
-        "ORGANIC": "green",
-        "RECYCLE": "blue",
-        "DOMESTIC": "black",
-        "FOOD": "food waste"
-    }
-
-    return roundTypeNameMap[roundType] ?? "unknown";
-}
 
 function renderSingleCollection(collection: BinCollection, i: number) {
     const roundTypesString = collection.roundTypes.map(roundTypeToNiceString).join(" and ");

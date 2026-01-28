@@ -156,6 +156,10 @@
     background-color: var(--bin-blue);
 }
 
+.collections-calendar .react-calendar__tile.calendar-bin-day.brown {
+    background-color: var(--bin-brown);
+}
+
 .collections-calendar .react-calendar__tile.calendar-bin-day.green.blue {
     background: linear-gradient(144deg, var(--bin-green) 0 50%, var(--bin-blue) 50% 100%);
 }

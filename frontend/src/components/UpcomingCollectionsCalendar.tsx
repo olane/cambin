@@ -14,6 +14,10 @@ function roundTypeToClass(roundType: RoundType) {
             return 'green';
         case 'RECYCLE':
             return 'blue';
+        case 'FOOD':
+            return 'brown';
+        default:
+            return 'unknown';
     }
 }
 

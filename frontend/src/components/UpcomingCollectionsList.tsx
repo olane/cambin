@@ -7,10 +7,11 @@ function roundTypeToNiceString(roundType: RoundType): string {
     const roundTypeNameMap = {
         "ORGANIC": "green",
         "RECYCLE": "blue",
-        "DOMESTIC": "black"
+        "DOMESTIC": "black",
+        "FOOD": "food waste"
     }
 
-    return roundTypeNameMap[roundType];
+    return roundTypeNameMap[roundType] ?? "unknown";
 }
 
 function renderSingleCollection(collection: BinCollection, i: number) {

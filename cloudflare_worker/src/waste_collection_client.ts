@@ -20,7 +20,7 @@ export interface BinContainer {
 	isBinStore: boolean
 }
 
-export type RoundType = "DOMESTIC" | "RECYCLE" | "ORGANIC";
+export type RoundType = "DOMESTIC" | "RECYCLE" | "ORGANIC" | "FOOD";
 
 export interface BinSchedule {
 	collections: BinCollection[],

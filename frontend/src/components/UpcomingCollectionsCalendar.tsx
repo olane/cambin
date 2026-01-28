@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import '../styles/calendar.css';
 import { TileClassNameFunc, Value } from 'react-calendar/dist/cjs/shared/types';
 import { BinSchedule, RoundType } from '../model/BinTypes';
+import { addressToString } from '../utils/addressUtils';
 import { isSameDate } from '../utils/dateUtils';
 import { UpcomingCollectionsProps } from './UpcomingCollections';
 
@@ -64,14 +65,17 @@ export const UpcomingCollectionsCalendar: FC<UpcomingCollectionsProps> = ({sched
     const tileClassNameFunc = getTileClassNameFunc(schedule);
 
     return (
-        <Calendar
-            onChange={onChange}
-            value={value}
-            tileClassName={tileClassNameFunc}
-            className='collections-calendar'
-            minDetail='month'
-            prev2Label={null}
-            next2Label={null}
-        />
+        <div className="bin-result">
+            <h2>{addressToString(address)}</h2>
+            <Calendar
+                onChange={onChange}
+                value={value}
+                tileClassName={tileClassNameFunc}
+                className='collections-calendar'
+                minDetail='month'
+                prev2Label={null}
+                next2Label={null}
+            />
+        </div>
     );
 }

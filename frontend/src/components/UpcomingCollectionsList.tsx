@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import { AddressSearchResponse, BinCollection, RoundType } from '../model/BinTypes';
+import { BinCollection, RoundType } from '../model/BinTypes';
 import { isThisWeek, isNextWeek, isToday, isTomorrow } from '../utils/dateUtils';
+import { addressToString } from '../utils/addressUtils';
 import { UpcomingCollectionsProps } from './UpcomingCollections';
 
 function roundTypeToNiceString(roundType: RoundType): string {
@@ -33,16 +34,6 @@ function renderSingleCollection(collection: BinCollection, i: number) {
     );
 
     return (<p key={i}>{dateString} ({dayString}){collection.slippedCollection && " - RESCHEDULED"}: {roundTypesString}</p>)
-}
-
-function addressToString(address: AddressSearchResponse) {
-    const toCapsCase = (str: string) => str
-        .split(' ')
-        .map(x => x.toLocaleLowerCase())
-        .map(x => x.charAt(0).toLocaleUpperCase() + x.slice(1))
-        .join(" ");
-
-    return `${address.houseNumber} ${toCapsCase(address.street)}`;
 }
 
 const renderSection = (collections: BinCollection[], sectionName: string) => {

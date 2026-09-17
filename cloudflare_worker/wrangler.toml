@@ -2,6 +2,18 @@ name = "cambin"
 main = "src/index.ts"
 compatibility_date = "2023-02-07"
 
+# Runs every evening (19:00 UTC = 20:00 BST / 19:00 GMT) to notify
+# subscribers about collections happening the following day.
+[triggers]
+crons = ["0 19 * * *"]
+
+# Stores push subscriptions. Create it with:
+#   wrangler kv namespace create PUSH_SUBSCRIPTIONS
+# then replace the id below with the id it prints.
+[[kv_namespaces]]
+binding = "PUSH_SUBSCRIPTIONS"
+id = "00000000000000000000000000000000"
+
 [observability]
 [observability.logs]
 enabled = true

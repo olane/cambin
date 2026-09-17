@@ -1,10 +1,10 @@
 import { unstable_dev } from "wrangler";
-import type { UnstableDevWorker } from "wrangler";
+import type { Unstable_DevWorker } from "wrangler";
 import { describe, expect, it, beforeAll, afterAll } from "vitest";
 import { AddressSearchResponse, BinSchedule } from ".";
 
 describe("Worker", () => {
-	let worker: UnstableDevWorker;
+	let worker: Unstable_DevWorker;
 
 	beforeAll(async () => {
 		worker = await unstable_dev("src/index.ts", {
@@ -35,7 +35,7 @@ describe("Worker", () => {
 			const resp = await worker.fetch("/search?postCode=CB43LL&houseNumber=5+Gibbons+House");
 			expect(resp.status).toBe(200);
 			if (resp) {
-				const json: AddressSearchResponse = await resp.json();
+				const json = await resp.json() as AddressSearchResponse;
 				expect(json.id).toEqual('200004164294');
 			}
 		});
@@ -57,7 +57,7 @@ describe("Worker", () => {
 		it("should return something if UPRN passed", async () => {
 			const resp = await worker.fetch("/bins?uprn=200004164294");
 			if (resp) {
-				const json: BinSchedule = await resp.json();
+				const json = await resp.json() as BinSchedule;
 				expect(json.isBinStore).toEqual(true);
 				expect(json.collections.length).toBeGreaterThan(0);
 			}
@@ -66,7 +66,7 @@ describe("Worker", () => {
 		it("should return something if houseNumber and postCode passed", async () => {
 			const resp = await worker.fetch("/bins?postCode=CB43LL&houseNumber=5+Gibbons+House");
 			if (resp) {
-				const json: { address: AddressSearchResponse; schedule: BinSchedule } = await resp.json();
+				const json = await resp.json() as { address: AddressSearchResponse; schedule: BinSchedule };
 				expect(json.address.id).toEqual("200004164294");
 				expect(json.schedule.isBinStore).toEqual(true);
 				expect(json.schedule.collections.length).toBeGreaterThan(0);

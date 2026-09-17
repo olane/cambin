@@ -2,6 +2,7 @@ import React, {FC, useState, useEffect} from 'react';
 import { AddressSearchResponse, BinSchedule } from '../model/BinTypes';
 import { UpcomingCollectionsCalendar } from './UpcomingCollectionsCalendar';
 import { UpcomingCollectionsList } from './UpcomingCollectionsList';
+import { NotificationToggle } from './NotificationToggle';
 
 export interface UpcomingCollectionsProps {
     schedule: BinSchedule,
@@ -44,6 +45,7 @@ export const UpcomingCollections : FC<UpcomingCollectionsProps> = (props) => {
         <>
             {collectionsElement}
             <button className="standard-button secondary toggle-view-button" onClick={onToggleView}>{buttonText}</button>
+            <NotificationToggle address={props.address} />
         </>
     );
 }

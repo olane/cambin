@@ -12,7 +12,7 @@ crons = ["0 19 * * *"]
 # then replace the id below with the id it prints.
 [[kv_namespaces]]
 binding = "PUSH_SUBSCRIPTIONS"
-id = "00000000000000000000000000000000"
+id = "ab6b97648e3c4a7fa7ada2ed37c1a943"
 
 [observability]
 [observability.logs]
